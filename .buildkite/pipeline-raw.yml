@@ -20,7 +20,7 @@ steps:
    key: build-ubuntu-source-packages
    commands:
    - eval "$SET_VERSION"
-   - nix develop .#docker-tezos-packages -c ./docker/build/ubuntu/build.py --type source -p tezos-baker-PtParisB tezos-baker-PsParisC tezos-accuser-PsPasicC tezos-admin-client tezos-client tezos-codec tezos-dac-client tezos-dac-node tezos-dal-node tezos-signer tezos-smart-rollup-wasm-debugger tezos-smart-rollup-node --launchpad-sources
+   - nix develop .#docker-tezos-packages -c ./docker/build/ubuntu/build.py --type source -p tezos-baker-PtParisB tezos-baker-PsParisC tezos-accuser-PsParisC tezos-admin-client tezos-client tezos-codec tezos-dac-client tezos-dac-node tezos-dal-node tezos-signer tezos-smart-rollup-wasm-debugger tezos-smart-rollup-node --launchpad-sources
    artifact_paths:
      - ./out/*
 
