@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # $PROTOCOL should be defined in the system unit environment
-baker="/usr/bin/tezos-baker-$PROTOCOL"
+baker="/usr/bin/mavryk-baker-$PROTOCOL"
 
 baker_dir="$DATA_DIR"
 

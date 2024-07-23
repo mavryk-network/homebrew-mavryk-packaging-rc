@@ -47,7 +47,7 @@ else:
 build_deps = ["make", "m4", "perl", "pkg-config", "wget", "unzip", "rsync", "gcc", "cargo"]
 common_deps = run_deps + build_deps
 
-version = os.environ["TEZOS_VERSION"][1:]
+version = os.environ["MAVRYK_VERSION"][1:]
 release = f"{meta['release']}"
 
 ubuntu_versions = [

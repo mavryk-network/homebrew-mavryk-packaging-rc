@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosSandbox < Formula
+class MavrykClient < Formula
   @all_bins = []
 
   class << self
@@ -19,14 +19,14 @@ class TezosSandbox < Formula
     depends_on dependency => :build
   end
 
-  dependencies = %w[gmp hidapi libev libffi]
+  dependencies = %w[gmp hidapi libev libffi mavryk-sapling-params]
   dependencies.each do |dependency|
     depends_on dependency
   end
-  desc "A tool for setting up and running testing scenarios with the local blockchain"
+  desc "CLI client for interacting with tezos blockchain"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosSandbox.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykClient.version}/"
     cellar :any
   end
 
@@ -47,8 +47,8 @@ class TezosSandbox < Formula
 
   def install
     make_deps
-    install_template "src/bin_sandbox/main.exe",
-                     "_build/default/src/bin_sandbox/main.exe",
-                     "tezos-sandbox"
+    install_template "src/bin_client/main_client.exe",
+                     "_build/default/src/bin_client/main_client.exe",
+                     "mavryk-client"
   end
 end

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosAdminClient < Formula
+class MavrykSandbox < Formula
   @all_bins = []
 
   class << self
@@ -23,10 +23,10 @@ class TezosAdminClient < Formula
   dependencies.each do |dependency|
     depends_on dependency
   end
-  desc "Administration tool for the node"
+  desc "A tool for setting up and running testing scenarios with the local blockchain"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosAdminClient.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykSandbox.version}/"
     cellar :any
   end
 
@@ -47,8 +47,8 @@ class TezosAdminClient < Formula
 
   def install
     make_deps
-    install_template "src/bin_client/main_admin.exe",
-                     "_build/default/src/bin_client/main_admin.exe",
-                     "tezos-admin-client"
+    install_template "src/bin_sandbox/main.exe",
+                     "_build/default/src/bin_sandbox/main.exe",
+                     "mavryk-sandbox"
   end
 end

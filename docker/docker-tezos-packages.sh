@@ -44,17 +44,17 @@ do
     esac
 done
 
-"$virtualisation_engine" build -t tezos-"$target_os" -f docker/package/Dockerfile-"$target_os" .
+"$virtualisation_engine" build -t mavryk-"$target_os" -f docker/package/Dockerfile-"$target_os" .
 set +e
 if [[ -z ${source_archive-} ]]; then
-    container_id="$("$virtualisation_engine" create --env TEZOS_VERSION="$TEZOS_VERSION" --env OPAMSOLVERTIMEOUT=900 -t tezos-"$target_os" "${args[@]}")"
+    container_id="$("$virtualisation_engine" create --env MAVRYK_VERSION="$MAVRYK_VERSION" --env OPAMSOLVERTIMEOUT=900 -t mavryk-"$target_os" "${args[@]}")"
 else
-    container_id="$("$virtualisation_engine" create -v "$PWD/$source_archive:/tezos-packaging/docker/$source_archive_name" \
-     --env TEZOS_VERSION="$TEZOS_VERSION" --env OPAMSOLVERTIMEOUT=900 -t tezos-"$target_os" "${args[@]}")"
+    container_id="$("$virtualisation_engine" create -v "$PWD/$source_archive:/mavryk-packaging/docker/$source_archive_name" \
+     --env MAVRYK_VERSION="$MAVRYK_VERSION" --env OPAMSOLVERTIMEOUT=900 -t mavryk-"$target_os" "${args[@]}")"
 fi
 "$virtualisation_engine" start -a "$container_id"
 exit_code="$?"
-"$virtualisation_engine" cp "$container_id":/tezos-packaging/docker/out .
+"$virtualisation_engine" cp "$container_id":/mavryk-packaging/docker/out .
 set -e
 "$virtualisation_engine" rm -v "$container_id"
 exit "$exit_code"

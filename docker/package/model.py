@@ -70,7 +70,7 @@ class AbstractPackage:
 
 
 meta = json.load(open(f"{os.path.dirname(__file__)}/../../meta.json", "r"))
-version = os.environ["TEZOS_VERSION"][1:]
+version = os.environ["MAVRYK_VERSION"][1:]
 release = f"{meta['release']}"
 ubuntu_epoch = 2
 fedora_epoch = 1
@@ -89,7 +89,7 @@ class OpamBasedPackage(AbstractPackage):
         self.postinst_steps = postinst_steps
 
     def fetch_sources(self, out_dir):
-        opam_package = "tezos-client" if self.name == "tezos-admin-client" else self.name
+        opam_package = "mavryk-client" if self.name == "mavryk-admin-client" else self.name
         subprocess.run(["opam", "exec", "--", "opam-bundle", f"{opam_package}={version}"] + self.optional_opam_deps +
                        ["--ocaml=4.09.1", "--yes", "--opam=2.0.5"], check=True)
         subprocess.run(["tar", "-zxf", f"{opam_package}-bundle.tar.gz"], check=True)
@@ -109,7 +109,7 @@ Homepage: https://gitlab.com/tezos/tezos/
 
 Package: {self.name.lower()}
 Architecture: amd64
-Depends: ${{shlibs:Depends}}, ${{misc:Depends}}, {"tezos-sapling-params" if self.requires_sapling_params else ""}
+Depends: ${{shlibs:Depends}}, ${{misc:Depends}}, {"mavryk-sapling-params" if self.requires_sapling_params else ""}
 Description: {self.desc}
 '''
         with open(out, 'w') as f:
@@ -203,7 +203,7 @@ BuildArch: x86_64
 Source0: {self.name}-{version}.tar.gz
 Source1: https://gitlab.com/tezos/tezos/tree/v{version}/
 BuildRequires: {build_requires} {systemd_deps}
-Requires: {requires}, {"tezos-sapling-params" if self.requires_sapling_params else ""}
+Requires: {requires}, {"mavryk-sapling-params" if self.requires_sapling_params else ""}
 %description
 {self.desc}
 Maintainer: {meta['maintainer']}
@@ -285,9 +285,9 @@ set -e
             f.write(postinst_contents)
 
 
-class TezosSaplingParamsPackage(AbstractPackage):
+class MavrykSaplingParamsPackage(AbstractPackage):
     def __init__(self):
-        self.name = "tezos-sapling-params"
+        self.name = "mavryk-sapling-params"
         self.desc = "Sapling params required in the runtime by the Tezos binaries"
         self.systemd_units = []
         self.targetProto = None
@@ -352,9 +352,9 @@ install -m 0755 sapling-output.params %{{buildroot}}/%{{_datadir}}/zcash-params
 
 DATADIR=/usr/share/zcash-params/
 
-tezos-sapling-params:
+mavryk-sapling-params:
 
-install: tezos-sapling-params
+install: mavryk-sapling-params
 	mkdir -p $(DESTDIR)$(DATADIR)
 	cp $(CURDIR)/sapling-spend.params $(DESTDIR)$(DATADIR)
 	cp $(CURDIR)/sapling-output.params $(DESTDIR)$(DATADIR)

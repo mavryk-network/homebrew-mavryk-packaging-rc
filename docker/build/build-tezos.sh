@@ -8,8 +8,8 @@
 # in parent directory, it also accepts tezos version as an argument.
 set -euo pipefail
 
-tezos_version="$1"
-git clone --single-branch --branch "$tezos_version" https://gitlab.com/tezos/tezos.git --depth 1
+mavryk_version="$1"
+git clone --single-branch --branch "$mavryk_version" https://gitlab.com/tezos/tezos.git --depth 1
 cd tezos
 
 git apply ../static.patch

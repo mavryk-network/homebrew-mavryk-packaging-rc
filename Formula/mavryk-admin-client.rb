@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosSigner < Formula
+class MavrykAdminClient < Formula
   @all_bins = []
 
   class << self
@@ -23,10 +23,10 @@ class TezosSigner < Formula
   dependencies.each do |dependency|
     depends_on dependency
   end
-  desc "A client to remotely sign operations or blocks"
+  desc "Administration tool for the node"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosSigner.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykAdminClient.version}/"
     cellar :any
   end
 
@@ -47,8 +47,8 @@ class TezosSigner < Formula
 
   def install
     make_deps
-    install_template "src/bin_signer/main_signer.exe",
-                     "_build/default/src/bin_signer/main_signer.exe",
-                     "tezos-signer"
+    install_template "src/bin_client/main_admin.exe",
+                     "_build/default/src/bin_client/main_admin.exe",
+                     "mavryk-admin-client"
   end
 end

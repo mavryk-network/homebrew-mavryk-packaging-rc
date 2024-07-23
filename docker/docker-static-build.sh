@@ -4,15 +4,15 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-# This script builds static tezos-binaries using custom alpine image.
+# This script builds static mavryk-binaries using custom alpine image.
 # It expects docker or podman to be installed and configured.
 
 set -euo pipefail
 
-binaries=("tezos-admin-client" "tezos-client" "tezos-node" "tezos-signer" "tezos-codec" "tezos-sandbox")
+binaries=("mavryk-admin-client" "mavryk-client" "mavryk-node" "mavryk-signer" "mavryk-codec" "mavryk-sandbox")
 
 for proto in $(jq -r ".active | .[]" ../protocols.json); do
-    binaries+=("tezos-accuser-$proto" "tezos-baker-$proto" "tezos-endorser-$proto")
+    binaries+=("mavryk-accuser-$proto" "mavryk-baker-$proto" "mavryk-endorser-$proto")
 done
 
 if [[ "${USE_PODMAN-}" == "True" ]]; then
@@ -41,8 +41,8 @@ if [[ $arch == "aarch64" && $(uname -m) != "x86_64" ]]; then
     echo "Compiling for aarch64 is supported only from aarch64 and x86_64"
 fi
 
-"$virtualisation_engine" build -t alpine-tezos -f "$docker_file" --build-arg TEZOS_VERSION="$TEZOS_VERSION" .
-container_id="$("$virtualisation_engine" create alpine-tezos)"
+"$virtualisation_engine" build -t alpine-mavryk -f "$docker_file" --build-arg MAVRYK_VERSION="$MAVRYK_VERSION" .
+container_id="$("$virtualisation_engine" create alpine-mavryk)"
 for b in "${binaries[@]}"; do
     "$virtualisation_engine" cp "$container_id:/tezos/$b" "$b"
 done

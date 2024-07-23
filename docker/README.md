@@ -16,9 +16,9 @@ Static binaries building using custom alpine image.
 
 [`docker-static-build.sh`](docker-static-build.sh) will build tezos binaries
 image defined in [Dockerfile](build/Dockerfile). In order to build them you should specify
-`TEZOS_VERSION` env variable and run the script:
+`MAVRYK_VERSION` env variable and run the script:
 ```
-export TEZOS_VERSION="v7.3"
+export MAVRYK_VERSION="v7.3"
 ./docker-static-build.sh
 ```
 After that, directory will contain built static binaries.
@@ -48,7 +48,7 @@ Once this is done you should run the following command to build `aarch64` static
 
 We provide a way to build both binary and source native Ubuntu packages.
 
-[`docker-tezos-packages.sh`](docker-tezos-packages.sh) script with `ubuntu` argument
+[`docker-mavryk-packages.sh`](docker-mavryk-packages.sh) script with `ubuntu` argument
 will build source or binary packages depending on the passed argument (`source` and `binary` respectively).
 This script builds packages inside docker image defined in [Dockerfile-ubuntu](package/Dockerfile-ubuntu).
 This script uses [python script](package/package_generator.py) which generates meta information for
@@ -57,19 +57,19 @@ version defined in [sources.json](../nix/nix/sources.json) and build native ubun
 
 ### `.deb` packages
 
-In order to build binary `.deb` packages specify `TEZOS_VERSION` and
+In order to build binary `.deb` packages specify `MAVRYK_VERSION` and
 run the following command:
 ```
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type binary
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type binary
 ```
 
 It is also possible to build single package. In order to do that run the following:
 ```
-# cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type binary --package <tezos-binary-name>
+# cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type binary --package <mavryk-binary-name>
 # Example for baker
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type binary --package tezos-baker-007-PsDELPH1
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type binary --package mavryk-baker-007-PsDELPH1
 ```
 
 The build can take some time due to the fact that we build tezos and its dependencies
@@ -86,10 +86,10 @@ sudo apt install <path to deb file>
 
 In order to build source packages run the following commands:
 ```
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type source
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type source
 # you can also build single source package
-cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type source --package tezos-baker-007-PsDELPH1
+cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type source --package mavryk-baker-007-PsDELPH1
 ```
 
 Once the packages build is complete `../out` directory will contain files required
@@ -118,7 +118,7 @@ debsign ../out/*.changes
 Signed files now can be submitted to Launchpad PPA. In order to do that run the following
 command for each `.changes` file:
 ```
-dput ppa:serokell/tezos ../out/<package>.changes
+dput ppa:mavrykdynamics/mavryk ../out/<package>.changes
 ```
 
 #### Updating release in scope of the same upstream version
@@ -126,12 +126,12 @@ dput ppa:serokell/tezos ../out/<package>.changes
 In case you're uploading the same version of the package but with the a different
 release number, you'll highly likely have to use the same source archive (`.orig.tar.gz` archive)
 that was used for the first release in the scope of the same version, it can be downloaded from
-the launchpad package details (e.g. https://launchpad.net/~serokell/+archive/ubuntu/tezos/+sourcefiles/tezos-client/2:7.4-0ubuntu2/tezos-client_7.4.orig.tar.gz).
+the launchpad package details (e.g. https://launchpad.net/~serokell/+archive/ubuntu/tezos/+sourcefiles/mavryk-client/2:7.4-0ubuntu2/mavryk-client_7.4.orig.tar.gz).
 Otherwise, Launchpad will prohibit the build of the new release.
 
 In order to build new proper source package using existing source archive run the following:
 ```
-cd .. && ./docker/docker-tezos-packages.sh --os ubuntu --type source --package tezos-client --sources <path to .orig.tar.gz>
+cd .. && ./docker/docker-mavryk-packages.sh --os ubuntu --type source --package mavryk-client --sources <path to .orig.tar.gz>
 ```
 
 After that, the resulting source package can be signed and uploaded to the Launchpad using the commands
@@ -141,24 +141,24 @@ described previously.
 
 We provide a way to build both binary(`.rpm`) and source(`.src.rpm`) native Fedora packages.
 
-[`docker-tezos-packages.sh`](docker-tezos-packages.sh) script with `fedora` argument
+[`docker-mavryk-packages.sh`](docker-mavryk-packages.sh) script with `fedora` argument
 will build source or binary packages depending on the passed argument (`source` and `binary` respectively).
 
 ### `.rpm` packages
 
-In order to build binary `.rpm` packages specify `TEZOS_VERSION` and
+In order to build binary `.rpm` packages specify `MAVRYK_VERSION` and
 run the following command:
 ```
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os fedora --type binary
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os fedora --type binary
 ```
 
 It is also possible to build single package. In order to do that run the following:
 ```
-# cd .. && ./docker/docker-tezos-packages.sh --os fedora --type binary --package <tezos-binary-name>
+# cd .. && ./docker/docker-mavryk-packages.sh --os fedora --type binary --package <mavryk-binary-name>
 # Example for baker
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os fedora --type binary --package tezos-baker-007-PsDELPH1
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os fedora --type binary --package mavryk-baker-007-PsDELPH1
 ```
 
 The build can take some time due to the fact that we build tezos and its dependencies
@@ -175,10 +175,10 @@ sudo yum localinstall <path to rpm file>
 
 In order to build source packages run the following commands:
 ```
-export TEZOS_VERSION="v7.3"
-cd .. && ./docker/docker-tezos-packages.sh --os fedora --type source
+export MAVRYK_VERSION="v7.3"
+cd .. && ./docker/docker-mavryk-packages.sh --os fedora --type source
 # you can also build single source package
-cd .. && ./docker/docker-tezos-packages.sh --os fedora --type source --package tezos-baker-007-PsDELPH1
+cd .. && ./docker/docker-mavryk-packages.sh --os fedora --type source --package mavryk-baker-007-PsDELPH1
 ```
 
 Sign source packages:

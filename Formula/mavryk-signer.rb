@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosNode < Formula
+class MavrykSigner < Formula
   @all_bins = []
 
   class << self
@@ -19,14 +19,14 @@ class TezosNode < Formula
     depends_on dependency => :build
   end
 
-  dependencies = %w[gmp hidapi libev libffi tezos-sapling-params]
+  dependencies = %w[gmp hidapi libev libffi]
   dependencies.each do |dependency|
     depends_on dependency
   end
-  desc "Entry point for initializing, configuring and running a Tezos node"
+  desc "A client to remotely sign operations or blocks"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosNode.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykSigner.version}/"
     cellar :any
   end
 
@@ -47,8 +47,8 @@ class TezosNode < Formula
 
   def install
     make_deps
-    install_template "src/bin_node/main.exe",
-                     "_build/default/src/bin_node/main.exe",
-                     "tezos-node"
+    install_template "src/bin_signer/main_signer.exe",
+                     "_build/default/src/bin_signer/main_signer.exe",
+                     "mavryk-signer"
   end
 end

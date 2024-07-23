@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosSignerHttps < Formula
+class MavrykSignerHttps < Formula
   url "file:///dev/null"
   version "v8.2-3"
 
   bottle :unneeded
-  depends_on "tezos-signer"
+  depends_on "mavryk-signer"
 
-  desc "Meta formula that provides backround tezos-signer service that runs over https"
+  desc "Meta formula that provides backround mavryk-signer service that runs over https"
 
   def install
     startup_contents =
@@ -18,7 +18,7 @@ class TezosSignerHttps < Formula
 
       set -euo pipefail
 
-      signer="/usr/local/bin/tezos-signer"
+      signer="/usr/local/bin/mavryk-signer"
 
       if [[ -n $PIDFILE ]]; then
         pid_file_args=("--pid-file" "$PIDFILE")
@@ -42,8 +42,8 @@ class TezosSignerHttps < Formula
         ${pid_file_args[@]+"${pid_file_args[@]}"} ${magic_bytes_args[@]+"${magic_bytes_args[@]}"} \
         ${check_high_watermark_args[@]+"${check_high_watermark_args[@]}"} "$@"
     EOS
-    File.write("tezos-signer-https-start", startup_contents)
-    bin.install "tezos-signer-https-start"
+    File.write("mavryk-signer-https-start", startup_contents)
+    bin.install "mavryk-signer-https-start"
   end
   def plist
     <<~EOS
@@ -55,7 +55,7 @@ class TezosSignerHttps < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-signer-https-start</string>
+          <string>#{opt_bin}/mavryk-signer-https-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>ADDRESS</key>

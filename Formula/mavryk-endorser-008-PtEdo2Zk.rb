@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosEndorser008Ptedo2zk < Formula
+class MavrykEndorser008Ptedo2zk < Formula
   @all_bins = []
 
   class << self
@@ -27,7 +27,7 @@ class TezosEndorser008Ptedo2zk < Formula
   desc "Daemon for endorsing"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosEndorser008Ptedo2zk.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykEndorser008Ptedo2zk.version}/"
     cellar :any
   end
 
@@ -54,7 +54,7 @@ class TezosEndorser008Ptedo2zk < Formula
 
       set -euo pipefail
 
-      endorser="#{bin}/tezos-endorser-008-PtEdo2Zk"
+      endorser="#{bin}/mavryk-endorser-008-PtEdo2Zk"
 
       endorser_dir="$DATA_DIR"
 
@@ -83,15 +83,15 @@ class TezosEndorser008Ptedo2zk < Formula
           launch_endorser "$ENDORSER_ACCOUNT"
       fi
     EOS
-    File.write("tezos-endorser-008-PtEdo2Zk-start", startup_contents)
-    bin.install "tezos-endorser-008-PtEdo2Zk-start"
+    File.write("mavryk-endorser-008-PtEdo2Zk-start", startup_contents)
+    bin.install "mavryk-endorser-008-PtEdo2Zk-start"
     make_deps
     install_template "src/proto_008_PtEdo2Zk/bin_endorser/main_endorser_008_PtEdo2Zk.exe",
                      "_build/default/src/proto_008_PtEdo2Zk/bin_endorser/main_endorser_008_PtEdo2Zk.exe",
-                     "tezos-endorser-008-PtEdo2Zk"
+                     "mavryk-endorser-008-PtEdo2Zk"
   end
 
-  plist_options manual: "tezos-endorser-008-PtEdo2Zk run"
+  plist_options manual: "mavryk-endorser-008-PtEdo2Zk run"
   def plist
     <<~EOS
       <?xml version="1.0" encoding="UTF-8"?>
@@ -102,7 +102,7 @@ class TezosEndorser008Ptedo2zk < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-endorser-008-PtEdo2Zk-start</string>
+          <string>#{opt_bin}/mavryk-endorser-008-PtEdo2Zk-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>DATA_DIR</key>

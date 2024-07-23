@@ -8,17 +8,17 @@ RUN apt-get update && apt-get install -y libev-dev libgmp-dev libhidapi-dev libf
 RUN apt-get install -y software-properties-common && add-apt-repository ppa:avsm/ppa -y && apt-get update && apt-get install -y opam
 RUN add-apt-repository ppa:ubuntu-mozilla-security/rust-next -y && apt-get update && apt-get -y install cargo
 ENV USER dockerbuilder
-RUN useradd dockerbuilder && mkdir /tezos-packaging
-ENV HOME /tezos-packaging
-COPY meta.json /tezos-packaging/meta.json
-COPY protocols.json /tezos-packaging/protocols.json
-WORKDIR /tezos-packaging/docker
-ENV OPAMROOT "/tezos-packaging/docker/opamroot"
+RUN useradd dockerbuilder && mkdir /mavryk-packaging
+ENV HOME /mavryk-packaging
+COPY meta.json /mavryk-packaging/meta.json
+COPY protocols.json /mavryk-packaging/protocols.json
+WORKDIR /mavryk-packaging/docker
+ENV OPAMROOT "/mavryk-packaging/docker/opamroot"
 RUN opam init --bare --yes --disable-sandboxing
 RUN opam switch create ocaml-base-compiler.4.09.1
 RUN opam switch set ocaml-base-compiler.4.09.1
 RUN opam install opam-bundle=0.4 --yes
-COPY docker/package/*.py /tezos-packaging/docker/package/
-COPY docker/package/defaults /tezos-packaging/docker/package/defaults
-COPY docker/package/scripts /tezos-packaging/docker/package/scripts
+COPY docker/package/*.py /mavryk-packaging/docker/package/
+COPY docker/package/defaults /mavryk-packaging/docker/package/defaults
+COPY docker/package/scripts /mavryk-packaging/docker/package/scripts
 ENTRYPOINT ["python3", "-m", "package.package_generator"]

@@ -4,26 +4,26 @@
    - SPDX-License-Identifier: LicenseRef-MIT-TQ
    -->
 
-# Tezos packaging
+# Mavryk packaging
 
-[![Build status](https://badge.buildkite.com/e899e9e54babcd14139e3bd4381bad39b5d680e08e7b7766d4.svg?branch=master)](https://buildkite.com/serokell/tezos-packaging)
+[![Build status](https://badge.buildkite.com/e899e9e54babcd14139e3bd4381bad39b5d680e08e7b7766d4.svg?branch=master)](https://buildkite.com/serokell/mavryk-packaging)
 
-This repo provides various form of distribution for tezos-related executables:
-* `tezos-client`
-* `tezos-admin-client`
-* `tezos-node`
-* `tezos-baker`
-* `tezos-accuser`
-* `tezos-endorser`
-* `tezos-signer`
-* `tezos-codec`
-* `tezos-sandbox`
+This repo provides various form of distribution for mavryk-related executables:
+* `mavryk-client`
+* `mavryk-admin-client`
+* `mavryk-node`
+* `mavryk-baker`
+* `mavryk-accuser`
+* `mavryk-endorser`
+* `mavryk-signer`
+* `mavryk-codec`
+* `mavryk-sandbox`
 
 Daemon binaries (as well as packages for them) have suffix that defines their target protocol,
-e.g. `tezos-baker-007-PsDELPH1` can be used only on the chain with 007 protocol.
+e.g. `mavryk-baker-007-PsDELPH1` can be used only on the chain with 007 protocol.
 
 Other binaries can be used with all protocols if they're new enough. E.g.
-007 protocol is supported only from `v7.4`. `tezos-node` can be set up to run
+007 protocol is supported only from `v7.4`. `mavryk-node` can be set up to run
 different networks, you can read more about this in [this article](https://tezos.gitlab.io/user/multinetwork.html).
 
 ## Table of contents
@@ -33,7 +33,7 @@ different networks, you can read more about this in [this article](https://tezos
 * [Native Fedora packages](#fedora)
 * [Other linux](#linux)
 * [Brew tap for macOS](#macos)
-* [Systemd services for Tezos binaries](#systemd)
+* [Systemd services for Mavryk binaries](#systemd)
 * [Building instructions](#building)
 * [Setting up baking instance on Ubuntu](#baking-on-ubuntu)
 
@@ -41,7 +41,7 @@ different networks, you can read more about this in [this article](https://tezos
 ## Obtain binaries from github release
 
 Recomended way to get these binaries is to download them from assets from github release.
-Go to the [latest release](https://github.com/serokell/tezos-packaging/releases/latest)
+Go to the [latest release](https://github.com/mavryk-network/mavryk-packaging/releases/latest)
 and download desired assets.
 
 Some of the individual binaries contain protocol name to determine
@@ -50,59 +50,59 @@ case, then consult release notes to check which protocols are
 supported by that binary.
 
 <a name="ubuntu"></a>
-## Ubuntu Launchpad PPA with `tezos-*` binaries
+## Ubuntu Launchpad PPA with `mavryk-*` binaries
 
-If you are using Ubuntu you can use PPA in order to install `tezos-*` executables.
-E.g, in order to do install `tezos-client` or `tezos-baker` run the following commands:
+If you are using Ubuntu you can use PPA in order to install `mavryk-*` executables.
+E.g, in order to do install `mavryk-client` or `mavryk-baker` run the following commands:
 ```
-sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update
-sudo apt-get install tezos-client
+sudo add-apt-repository ppa:mavrykdynamics/mavryk && sudo apt-get update
+sudo apt-get install mavryk-client
 # dpkg-source prohibits uppercase in the packages names so the protocol
 # name is in lowercase
-sudo apt-get install tezos-baker-007-psdelph1
+sudo apt-get install mavryk-baker-007-psdelph1
 ```
-Once you install such packages the commands `tezos-*` will be available.
+Once you install such packages the commands `mavryk-*` will be available.
 
 <a name="fedora"></a>
-## Fedora Copr repository with `tezos-*` binaries
+## Fedora Copr repository with `mavryk-*` binaries
 
-If you are using Fedora you can use Copr in order to install `tezos-*`
+If you are using Fedora you can use Copr in order to install `mavryk-*`
 executables.
-E.g. in order to install `tezos-client` or `tezos-baker` run the following commands:
+E.g. in order to install `mavryk-client` or `mavryk-baker` run the following commands:
 ```
 # use dnf
-sudo dnf copr enable @Serokell/Tezos
-sudo dnf install tezos-client
-sudo dnf install tezos-baker-007-PsDELPH1
+sudo dnf copr enable @mavrykdynamics/mavryk
+sudo dnf install mavryk-client
+sudo dnf install mavryk-baker-007-PsDELPH1
 
 # or use yum
-sudo yum copr enable @Serokell/Tezos
-sudo yum install tezos-baker-007-PsDELPH1
+sudo yum copr enable @mavrykdynamics/mavryk
+sudo yum install mavryk-baker-007-PsDELPH1
 ```
-Once you install such packages the commands `tezos-*` will be available.
+Once you install such packages the commands `mavryk-*` will be available.
 
 <a name="linux"></a>
 ## Other Linux distros usage
 
 Download binaries from release assets.
 
-### `tezos-client` example
+### `mavryk-client` example
 
 Make it executable:
 ```
-chmod +x tezos-client
+chmod +x mavryk-client
 ```
 
-Run `./tezos-client` or add it to your PATH to be able to run it anywhere.
+Run `./mavryk-client` or add it to your PATH to be able to run it anywhere.
 
 <a name="macos"></a>
 ## Brew tap for macOS
 
-If you're using macOS and `brew`, you can install Tezos binaries from the tap
+If you're using macOS and `brew`, you can install Mavryk binaries from the tap
 provided by this repository. In order to do that run the following:
 ```
-brew tap serokell/tezos-packaging https://github.com/serokell/tezos-packaging.git
-brew install tezos-client
+brew tap serokell/mavryk-packaging https://github.com/mavryk-network/mavryk-packaging.git
+brew install mavryk-client
 ```
 
 ### Building brew bottles
@@ -119,12 +119,12 @@ dependencies are compiled from scratch. Once the bottles are built, the correspo
 formulas should be updated. Also, bottles should be uploaded to the release artifacts.
 
 <a name="systemd"></a>
-## Background services for `tezos-node` and daemons
+## Background services for `mavryk-node` and daemons
 
 ### Systemd units on Ubuntu or Fedora
 
-`tezos-node`, `tezos-accuser-<proto>`, `tezos-baker-<proto>`,
-`tezos-endorser-<proto>`, and `tezos-signer` packages have systemd files included to the
+`mavryk-node`, `mavryk-accuser-<proto>`, `mavryk-baker-<proto>`,
+`mavryk-endorser-<proto>`, and `mavryk-signer` packages have systemd files included to the
 Ubuntu and Fedora packages.
 
 Once you've installed the packages with systemd unit, you can run the service
@@ -141,37 +141,37 @@ Each service has configuration file located in `/etc/default`. Default
 configurations can be found [here](docker/package/defaults/).
 
 Files created by the services will be located in `/var/lib/tezos/` by default.
-`tezos-{accuser, baker, endorser}-<protocol>` services can have configurable
+`mavryk-{accuser, baker, endorser}-<protocol>` services can have configurable
 data directory.
 
-`tezos-{accuser, endorser}` have configurable node address, so that they can be used with both
+`mavryk-{accuser, endorser}` have configurable node address, so that they can be used with both
 remote and local node.
 
 ### Launchd services on macOS
 
-`tezos-accuser-<proto>`, `tezos-baker-<proto>`, `tezos-endorser-<proto>` formulas
+`mavryk-accuser-<proto>`, `mavryk-baker-<proto>`, `mavryk-endorser-<proto>` formulas
 provide backround services for running the corresponding daemons.
 
-Since `tezos-node` and `tezos-signer` need multiple services they are provided
+Since `mavryk-node` and `mavryk-signer` need multiple services they are provided
 in dedicated meta-formulas. These formulas don't install any binaries and only add
 background services.
 
-Formulas with `tezos-node` background services:
-* `tezos-node-mainnet`
-* `tezos-node-edo2net`
+Formulas with `mavryk-node` background services:
+* `mavryk-node-mainnet`
+* `mavryk-node-edo2net`
 
-Formulas with `tezos-signer` background services:
-* `tezos-signer-http`
-* `tezos-signer-https`
+Formulas with `mavryk-signer` background services:
+* `mavryk-signer-http`
+* `mavryk-signer-https`
 * `tesos-signer-tcp`
-* `tezos-signer-unix`
+* `mavryk-signer-unix`
 
 To start the service: `brew services start <formula>`.
 
 To stop the service: `brew services stop <formula>`.
 
 All of the brew services have various configurable env variables. These variables
-can be changed in the corresponding `/usr/local/Cellar/tezos-signer-tcp/<version>/homebrew.mxcl.<formula>.plist`.
+can be changed in the corresponding `/usr/local/Cellar/mavryk-signer-tcp/<version>/homebrew.mxcl.<formula>.plist`.
 Once the configuration is updated, you should restart the service:
 `brew services restart <formula>`.
 
@@ -185,13 +185,13 @@ from scratch.
 For this you'll need `.service` file to define systemd service. The easiest way
 to get one is to run [`gen_systemd_service_file.py`](gen_systemd_service_file.py).
 You should specify service name as an argument. Note that there are three
-predefined services for `tezos-node`: `tezos-node-{mainnet, delphinet}`.
+predefined services for `mavryk-node`: `mavryk-node-{mainnet, delphinet}`.
 
 E.g.:
 ```
-./gen_systemd_service_file.py tezos-node-mainnet
+./gen_systemd_service_file.py mavryk-node-mainnet
 # or
-./gen_systemd_service_file.py tezos-baker-007-PsDELPH1
+./gen_systemd_service_file.py mavryk-baker-007-PsDELPH1
 ```
 After that you'll have `.service` file in the current directory.
 
@@ -202,22 +202,22 @@ file, they can be found in [`scripts`](./docker/package/scripts) and
 
 ### Multiple similar systemd services
 
-It's possible to run multiple same services, e.g. two `tezos-node`s that run different
+It's possible to run multiple same services, e.g. two `mavryk-node`s that run different
 networks.
 
-`tezos-node` packages provide three services out of the box:
-`tezos-node-delphinet` and `tezos-node-mainnet` that run
+`mavryk-node` packages provide three services out of the box:
+`mavryk-node-delphinet` and `mavryk-node-mainnet` that run
 `delphinet` and `mainnet` networks respectively.
 
 In order to start it run:
 ```
-systemctl start tezos-node-<network>
+systemctl start mavryk-node-<network>
 ```
 
 In addition to node services where the config is predefined to a specific network
-(e.g. `tezos-node-mainnet` or `tezos-node-delphinet`), it's possible to run `tezos-node-custom`
+(e.g. `mavryk-node-mainnet` or `mavryk-node-delphinet`), it's possible to run `mavryk-node-custom`
 service and provide a path to the custom node config file via the
-`CUSTOM_NODE_CONFIG` variable in the `tezos-node-custom.service` file.
+`CUSTOM_NODE_CONFIG` variable in the `mavryk-node-custom.service` file.
 
 Another case for running multiple similar systemd services is when one wants to have
 multiple daemons that target different protocols.
@@ -226,12 +226,12 @@ have different service files. The only thing that needs to be changed is config 
 One should provide desired node address, data directory for daemon files and node directory
 (however, this is the case only for baker daemon).
 
-`tezos-signer` package provides four services one for each mode in which signing daemon can run:
-* Over TCP socket (`tezos-signer-tcp.service`).
-* Over UNIX socker (`tezos-signer-unix.service`).
-* Over HTTP (`tezos-signer-http.service`).
-* Over HTTPS (`tezos-signer-https.service`)
-Each signer service has dedicated config file in e.g. `/etc/default/tezos-signer-{mode}`.
+`mavryk-signer` package provides four services one for each mode in which signing daemon can run:
+* Over TCP socket (`mavryk-signer-tcp.service`).
+* Over UNIX socker (`mavryk-signer-unix.service`).
+* Over HTTP (`mavryk-signer-http.service`).
+* Over HTTPS (`mavryk-signer-https.service`)
+Each signer service has dedicated config file in e.g. `/etc/default/mavryk-signer-{mode}`.
 
 <a name="building"></a>
 ## Build Instructions

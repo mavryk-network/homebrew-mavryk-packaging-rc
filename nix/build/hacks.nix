@@ -74,7 +74,7 @@ rec {
       '' + o.buildPhase;
   });
 
-  tezos-sapling = osuper.tezos-sapling.overrideAttrs (o:
+  mavryk-sapling = osuper.mavryk-sapling.overrideAttrs (o:
     let extern-C-patch = ./librustzcash-extern-C.patch; in
     rec {
       buildInputs = o.buildInputs ++ [ librustzcash rustc-bls12-381 self.gcc self.git ];
@@ -110,102 +110,102 @@ rec {
   # FIXME recursive dependencies WTF
   bigstring = osuper.bigstring.overrideAttrs (_: { doCheck = false; });
 
-  tezos-protocol-environment = osuper.tezos-protocol-environment.overrideAttrs (o: rec {
+  mavryk-protocol-environment = osuper.mavryk-protocol-environment.overrideAttrs (o: rec {
     buildInputs = o.buildInputs ++ [ zarith ];
     propagatedBuildInputs = buildInputs;
   });
 
-  # FIXME dependencies in tezos-protocol-compiler.opam
-  tezos-protocol-compiler = osuper.tezos-protocol-compiler.overrideAttrs
+  # FIXME dependencies in mavryk-protocol-compiler.opam
+  mavryk-protocol-compiler = osuper.mavryk-protocol-compiler.overrideAttrs
     (oa: rec {
       buildInputs = oa.buildInputs ++ [ oself.pprint rustc-bls12-381 ];
       propagatedBuildInputs = buildInputs;
     });
 
   # packages depend on rust library
-  tezos-validator = osuper.tezos-validator.overrideAttrs
+  mavryk-validator = osuper.mavryk-validator.overrideAttrs
     (o: rec {
       buildInputs = o.buildInputs ++ [ librustzcash ];
     });
-  tezos-protocol-006-PsCARTHA-parameters = osuper.tezos-protocol-006-PsCARTHA-parameters.overrideAttrs
-    (o: rec {
-      buildInputs = o.buildInputs ++ [ librustzcash ];
-      XDG_DATA_DIRS = "${zcash-params}:$XDG_DATA_DIRS";
-    });
-  tezos-protocol-007-PsDELPH1-parameters = osuper.tezos-protocol-007-PsDELPH1-parameters.overrideAttrs
+  mavryk-protocol-006-PsCARTHA-parameters = osuper.mavryk-protocol-006-PsCARTHA-parameters.overrideAttrs
     (o: rec {
       buildInputs = o.buildInputs ++ [ librustzcash ];
       XDG_DATA_DIRS = "${zcash-params}:$XDG_DATA_DIRS";
     });
-  tezos-protocol-008-PtEdo2Zk-parameters = osuper.tezos-protocol-008-PtEdo2Zk-parameters.overrideAttrs
+  mavryk-protocol-007-PsDELPH1-parameters = osuper.mavryk-protocol-007-PsDELPH1-parameters.overrideAttrs
+    (o: rec {
+      buildInputs = o.buildInputs ++ [ librustzcash ];
+      XDG_DATA_DIRS = "${zcash-params}:$XDG_DATA_DIRS";
+    });
+  mavryk-protocol-008-PtEdo2Zk-parameters = osuper.mavryk-protocol-008-PtEdo2Zk-parameters.overrideAttrs
     (o: rec {
       buildInputs = o.buildInputs ++ [ librustzcash ];
       XDG_DATA_DIRS = "${zcash-params}:$XDG_DATA_DIRS";
     });
 
   # FIXME apply this patch upstream
-  tezos-stdlib-unix = osuper.tezos-stdlib-unix.overrideAttrs
+  mavryk-stdlib-unix = osuper.mavryk-stdlib-unix.overrideAttrs
     (_: { patches = [ ./stdlib-unix.patch ]; });
 
-  tezos-client = osuper.tezos-client.overrideAttrs
+  mavryk-client = osuper.mavryk-client.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
-      postInstall = "rm $bin/tezos-admin-client $bin/*.sh";
+      postInstall = "rm $bin/mavryk-admin-client $bin/*.sh";
       postFixup = zcash-post-fixup o;
     });
 
-  tezos-accuser-007-PsDELPH1 = osuper.tezos-accuser-007-PsDELPH1.overrideAttrs
+  mavryk-accuser-007-PsDELPH1 = osuper.mavryk-accuser-007-PsDELPH1.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-baker-007-PsDELPH1 = osuper.tezos-baker-007-PsDELPH1.overrideAttrs
+  mavryk-baker-007-PsDELPH1 = osuper.mavryk-baker-007-PsDELPH1.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-endorser-007-PsDELPH1 = osuper.tezos-endorser-007-PsDELPH1.overrideAttrs
+  mavryk-endorser-007-PsDELPH1 = osuper.mavryk-endorser-007-PsDELPH1.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-accuser-008-PtEdo2Zk = osuper.tezos-accuser-008-PtEdo2Zk.overrideAttrs
+  mavryk-accuser-008-PtEdo2Zk = osuper.mavryk-accuser-008-PtEdo2Zk.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-baker-008-PtEdo2Zk = osuper.tezos-baker-008-PtEdo2Zk.overrideAttrs
+  mavryk-baker-008-PtEdo2Zk = osuper.mavryk-baker-008-PtEdo2Zk.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-endorser-008-PtEdo2Zk = osuper.tezos-endorser-008-PtEdo2Zk.overrideAttrs
+  mavryk-endorser-008-PtEdo2Zk = osuper.mavryk-endorser-008-PtEdo2Zk.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-codec = osuper.tezos-codec.overrideAttrs
+  mavryk-codec = osuper.mavryk-codec.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ rustc-bls12-381 librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
-  tezos-signer = osuper.tezos-signer.overrideAttrs
+  mavryk-signer = osuper.mavryk-signer.overrideAttrs
     (o: {
       buildInputs = o.buildInputs ++ [ rustc-bls12-381 librustzcash self.makeWrapper ];
       postFixup = zcash-post-fixup o;
     });
 
-  tezos-admin-client = (osuper.tezos-client.overrideAttrs (o: {
+  mavryk-admin-client = (osuper.mavryk-client.overrideAttrs (o: {
     buildInputs = o.buildInputs ++ [ librustzcash ];
-    name = "tezos-admin-client";
-    postInstall = "rm $bin/tezos-client $bin/*.sh";
+    name = "mavryk-admin-client";
+    postInstall = "rm $bin/mavryk-client $bin/*.sh";
   })).overrideAttrs (o: {
     buildInputs = o.buildInputs ++ [self.makeWrapper ];
     postFixup = zcash-post-fixup o;
   });
 
-  tezos-node =
-    osuper.tezos-node.overrideAttrs (o: rec {
+  mavryk-node =
+    osuper.mavryk-node.overrideAttrs (o: rec {
       buildInputs = o.buildInputs ++ [ librustzcash self.makeWrapper ];
       postInstall = "rm $bin/*.sh";
       postFixup = zcash-post-fixup o;

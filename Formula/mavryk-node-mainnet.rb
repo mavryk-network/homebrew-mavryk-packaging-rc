@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosNodeMainnet < Formula
+class MavrykNodeMainnet < Formula
   url "file:///dev/null"
   version "v8.2-3"
 
   bottle :unneeded
-  depends_on "tezos-node"
+  depends_on "mavryk-node"
 
-  desc "Meta formula that provides backround tezos-node service that runs on mainnet"
+  desc "Meta formula that provides backround mavryk-node service that runs on mainnet"
 
   def install
     startup_contents =
@@ -18,7 +18,7 @@ class TezosNodeMainnet < Formula
 
       set -euo pipefail
 
-      node="/usr/local/bin/tezos-node"
+      node="/usr/local/bin/mavryk-node"
       # default location of the config file
       config_file="$DATA_DIR/config.json"
 
@@ -47,9 +47,9 @@ class TezosNodeMainnet < Formula
               --rpc-tls="$CERT_PATH","$KEY_PATH"
       fi
     EOS
-    File.write("tezos-node-mainnet-start", startup_contents)
-    bin.install "tezos-node-mainnet-start"
-    print "Installing tezos-node-mainnet service"
+    File.write("mavryk-node-mainnet-start", startup_contents)
+    bin.install "mavryk-node-mainnet-start"
+    print "Installing mavryk-node-mainnet service"
   end
   def plist
     <<~EOS
@@ -61,7 +61,7 @@ class TezosNodeMainnet < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-node-mainnet-start</string>
+          <string>#{opt_bin}/mavryk-node-mainnet-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>DATA_DIR</key>
@@ -84,6 +84,6 @@ class TezosNodeMainnet < Formula
   end
   def post_install
     mkdir_p "#{var}/lib/tezos/node-mainnet"
-    system "tezos-node", "config", "init", "--data-dir" "#{var}/lib/tezos/node-mainnet", "--network", "mainnet"
+    system "mavryk-node", "config", "init", "--data-dir" "#{var}/lib/tezos/node-mainnet", "--network", "mainnet"
   end
 end

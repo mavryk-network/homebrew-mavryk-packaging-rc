@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosNodeEdo2net < Formula
+class MavrykNodeEdo2net < Formula
   url "file:///dev/null"
   version "v8.2-3"
 
   bottle :unneeded
-  depends_on "tezos-node"
+  depends_on "mavryk-node"
 
-  desc "Meta formula that provides backround tezos-node service that runs on edo2net"
+  desc "Meta formula that provides backround mavryk-node service that runs on edo2net"
 
   @@edo2net_config =
       <<~EOS
@@ -24,8 +24,8 @@ class TezosNodeEdo2net < Formula
         { "values":
             { "genesis_pubkey":
                 "edpkugeDwmwuwyyD3Q5enapgEYDxZLtEUFFSrvVwXASQMVEqsvTqWu" } },
-      "chain_name": "TEZOS_EDO2NET_2021-02-11T14:00:00Z",
-      "sandboxed_chain_name": "SANDBOXED_TEZOS",
+      "chain_name": "MAVRYK_EDO2NET_2021-02-11T14:00:00Z",
+      "sandboxed_chain_name": "SANDBOXED_MAVRYK",
       "default_bootstrap_peers":
         [ "edonet.tezos.co.il", "188.40.128.216:29732", "edo2net.kaml.fr",
           "edonet2.smartpy.io", "51.79.165.131", "edonetb.boot.tezostaquito.io" ] }
@@ -38,7 +38,7 @@ class TezosNodeEdo2net < Formula
 
       set -euo pipefail
 
-      node="/usr/local/bin/tezos-node"
+      node="/usr/local/bin/mavryk-node"
       # default location of the config file
       config_file="$DATA_DIR/config.json"
 
@@ -68,8 +68,8 @@ class TezosNodeEdo2net < Formula
               --rpc-tls="$CERT_PATH","$KEY_PATH"
       fi
     EOS
-    File.write("tezos-node-edo2net-start", startup_contents)
-    bin.install "tezos-node-edo2net-start"
+    File.write("mavryk-node-edo2net-start", startup_contents)
+    bin.install "mavryk-node-edo2net-start"
   end
   def plist
     <<~EOS
@@ -81,7 +81,7 @@ class TezosNodeEdo2net < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-node-edo2net-start</string>
+          <string>#{opt_bin}/mavryk-node-edo2net-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>DATA_DIR</key>

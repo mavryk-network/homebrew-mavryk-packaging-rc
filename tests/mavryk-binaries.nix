@@ -17,24 +17,24 @@ in import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ ... }:
 
   testScript = ''
     path_to_binaries = "${path-to-binaries}"
-    tezos_accuser = f"{path_to_binaries}/tezos-accuser-008-PtEdo2Zk"
-    tezos_admin_client = f"{path_to_binaries}/tezos-admin-client"
-    tezos_baker = f"{path_to_binaries}/tezos-baker-008-PtEdo2Zk"
-    tezos_client = f"{path_to_binaries}/tezos-client"
-    tezos_endorser = f"{path_to_binaries}/tezos-endorser-008-PtEdo2Zk"
-    tezos_node = f"{path_to_binaries}/tezos-node"
-    tezos_signer = f"{path_to_binaries}/tezos-signer"
-    tezos_codec = f"{path_to_binaries}/tezos-codec"
+    mavryk_accuser = f"{path_to_binaries}/mavryk-accuser-008-PtEdo2Zk"
+    mavryk_admin_client = f"{path_to_binaries}/mavryk-admin-client"
+    mavryk_baker = f"{path_to_binaries}/mavryk-baker-008-PtEdo2Zk"
+    mavryk_client = f"{path_to_binaries}/mavryk-client"
+    mavryk_endorser = f"{path_to_binaries}/mavryk-endorser-008-PtEdo2Zk"
+    mavryk_node = f"{path_to_binaries}/mavryk-node"
+    mavryk_signer = f"{path_to_binaries}/mavryk-signer"
+    mavryk_codec = f"{path_to_binaries}/mavryk-codec"
     openssl = "${pkgs.openssl.bin}/bin/openssl"
     binaries = [
-        tezos_accuser,
-        tezos_admin_client,
-        tezos_baker,
-        tezos_client,
-        tezos_endorser,
-        tezos_node,
-        tezos_signer,
-        tezos_codec,
+        mavryk_accuser,
+        mavryk_admin_client,
+        mavryk_baker,
+        mavryk_client,
+        mavryk_endorser,
+        mavryk_node,
+        mavryk_signer,
+        mavryk_codec,
     ]
     ${builtins.readFile ./test_script.py}'';
 }) args

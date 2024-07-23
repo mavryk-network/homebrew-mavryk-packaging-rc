@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosBaker008Ptedo2zk < Formula
+class MavrykAccuser008Ptedo2zk < Formula
   @all_bins = []
 
   class << self
@@ -19,14 +19,14 @@ class TezosBaker008Ptedo2zk < Formula
     depends_on dependency => :build
   end
 
-  dependencies = %w[gmp hidapi libev libffi tezos-sapling-params]
+  dependencies = %w[gmp hidapi libev libffi]
   dependencies.each do |dependency|
     depends_on dependency
   end
-  desc "Daemon for baking"
+  desc "Daemon for accusing"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosBaker008Ptedo2zk.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykAccuser008Ptedo2zk.version}/"
     cellar :any
   end
 
@@ -52,43 +52,36 @@ class TezosBaker008Ptedo2zk < Formula
 
       set -euo pipefail
 
-      baker="#{bin}/tezos-baker-008-PtEdo2Zk"
+      accuser="#{bin}/mavryk-accuser-008-PtEdo2Zk"
 
-      baker_dir="$DATA_DIR"
+      accuser_dir="$DATA_DIR"
 
-      baker_config="$baker_dir/config"
-      mkdir -p "$baker_dir"
+      accuser_config="$accuser_dir/config"
+      mkdir -p "$accuser_dir"
 
-      if [ ! -f "$baker_config" ]; then
-          "$baker" --base-dir "$baker_dir" \
-                  --endpoint "$NODE_RPC_ENDPOINT" \
-                  config init --output "$baker_config" >/dev/null 2>&1
+      if [ ! -f "$accuser_config" ]; then
+          "$accuser" --base-dir "$accuser_dir" \
+                    --endpoint "$NODE_RPC_ENDPOINT" \
+                    config init --output "$accuser_config" >/dev/null 2>&1
       else
-          "$baker" --base-dir "$baker_dir" \
-                  --endpoint "$NODE_RPC_ENDPOINT" \
-                  config update >/dev/null 2>&1
+          "$accuser" --base-dir "$accuser_dir" \
+                    --endpoint "$NODE_RPC_ENDPOINT" \
+                    config update >/dev/null 2>&1
       fi
 
-      launch_baker() {
-          exec "$baker" \
-              --base-dir "$baker_dir" --endpoint "$NODE_RPC_ENDPOINT" \
-              run with local node "$NODE_DATA_DIR" "$@"
-      }
-
-      if [[ -z "$BAKER_ACCOUNT" ]]; then
-          launch_baker
-      else
-          launch_baker "$BAKER_ACCOUNT"
-      fi
+      exec "$accuser" --base-dir "$accuser_dir" \
+          --endpoint "$NODE_RPC_ENDPOINT" \
+          run
     EOS
-    File.write("tezos-baker-008-PtEdo2Zk-start", startup_contents)
-    bin.install "tezos-baker-008-PtEdo2Zk-start"
+    File.write("mavryk-accuser-008-PtEdo2Zk-start", startup_contents)
+    bin.install "mavryk-accuser-008-PtEdo2Zk-start"
     make_deps
-    install_template "src/proto_008_PtEdo2Zk/bin_baker/main_baker_008_PtEdo2Zk.exe",
-                     "_build/default/src/proto_008_PtEdo2Zk/bin_baker/main_baker_008_PtEdo2Zk.exe",
-                     "tezos-baker-008-PtEdo2Zk"
+    install_template "src/proto_008_PtEdo2Zk/bin_accuser/main_accuser_008_PtEdo2Zk.exe",
+                     "_build/default/src/proto_008_PtEdo2Zk/bin_accuser/main_accuser_008_PtEdo2Zk.exe",
+                     "mavryk-accuser-008-PtEdo2Zk"
   end
-  plist_options manual: "tezos-baker-008-PtEdo2Zk run with local node"
+
+  plist_options manual: "mavryk-accuser-008-PtEdo2Zk run"
   def plist
     <<~EOS
       <?xml version="1.0" encoding="UTF-8"?>
@@ -99,17 +92,13 @@ class TezosBaker008Ptedo2zk < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-baker-008-PtEdo2Zk-start</string>
+          <string>#{opt_bin}/mavryk-accuser-008-PtEdo2Zk-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>DATA_DIR</key>
               <string>#{var}/lib/tezos/client</string>
-              <key>NODE_DATA_DIR</key>
-              <string></string>
               <key>NODE_RPC_ENDPOINT</key>
               <string>http://localhost:8732</string>
-              <key>BAKER_ACCOUNT</key>
-              <string></string>
           </dict>
           <key>RunAtLoad</key><true/>
           <key>StandardOutPath</key>

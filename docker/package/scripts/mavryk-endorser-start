@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # $PROTOCOL should be defined in the system unit environment
-endorser="/usr/bin/tezos-endorser-$PROTOCOL"
+endorser="/usr/bin/mavryk-endorser-$PROTOCOL"
 
 endorser_dir="$DATA_DIR"
 

@@ -21,7 +21,7 @@ let
       release-binaries)}
   '';
   releaseNoTarball = buildEnv {
-    name = "tezos-release-no-tarball";
+    name = "mavryk-release-no-tarball";
     paths = [ "${binaries}" "${arm-binaries}" LICENSE release-notes ];
   };
   tarballName = "binaries-${commonMeta.version}-${commonMeta.release}.tar.gz";
@@ -32,6 +32,6 @@ let
     "mkdir $out; tar --owner=serokell:1000 --mode='u+rwX' -czhf $out/${armTarballName} -C ${arm-binaries} .";
   LICENSE = writeTextDir "LICENSE" (builtins.readFile commonMeta.licenseFile);
 in buildEnv {
-  name = "tezos-release";
+  name = "mavryk-release";
   paths = [ releaseNoTarball binariesTarball armBinariesTarball ];
 }

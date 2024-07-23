@@ -7,7 +7,7 @@ let
   pkgs = import ./build/pkgs.nix { };
   source = (import ./nix/sources.nix).tezos;
   protocols = import ./protocols.nix;
-  release-binaries = builtins.filter (elem: elem.name != "tezos-sandbox")
+  release-binaries = builtins.filter (elem: elem.name != "mavryk-sandbox")
     (import ./build/release-binaries.nix);
   binaries = builtins.listToAttrs (map (meta: {
     inherit (meta) name;

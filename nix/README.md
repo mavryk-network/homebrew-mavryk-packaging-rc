@@ -15,7 +15,7 @@ nix build -f. binaries
 
 As an alternative you can build single binary:
 ```
-nix build -f. binaries.tezos-client
+nix build -f. binaries.mavryk-client
 ```
 
-This will produce `tezos-client` binary.
+This will produce `mavryk-client` binary.

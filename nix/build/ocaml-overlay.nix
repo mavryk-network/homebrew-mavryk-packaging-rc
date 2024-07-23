@@ -11,11 +11,11 @@ self: super: {
     (builtins.foldl' self.lib.composeExtensions (_: _: { }) [
       (opam-nix.traverseOPAMRepo' sources.opam-repository)
       (oself: osuper: { index-super = osuper.index.versions."1.2.0"; })
-      (opam-nix.callOPAMPackage sources.tezos)
+      (opam-nix.callOPAMPackage sources.mavryk)
       (_: # Nullify all the ignored protocols so that we don't build them
         builtins.mapAttrs (name: pkg:
           if builtins.any
-          (proto: !isNull (builtins.match "tezos.*${proto}.*" name))
+          (proto: !isNull (builtins.match "mavryk.*${proto}.*" name))
           protocols.ignored then
             null
           else

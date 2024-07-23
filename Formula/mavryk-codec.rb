@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosCodec < Formula
+class MavrykCodec < Formula
   @all_bins = []
 
   class << self
@@ -26,7 +26,7 @@ class TezosCodec < Formula
   desc "A client to decode and encode JSON"
 
   bottle do
-    root_url "https://github.com/serokell/tezos-packaging/releases/download/#{TezosCodec.version}/"
+    root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykCodec.version}/"
     cellar :any
   end
 
@@ -49,6 +49,6 @@ class TezosCodec < Formula
     make_deps
     install_template "src/bin_codec/codec.exe",
                      "_build/default/src/bin_codec/codec.exe",
-                     "tezos-codec"
+                     "mavryk-codec"
   end
 end

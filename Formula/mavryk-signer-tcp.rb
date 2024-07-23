@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: LicenseRef-MIT-TQ
 
-class TezosSignerHttp < Formula
+class MavrykSignerTcp < Formula
   url "file:///dev/null"
   version "v8.2-3"
 
   bottle :unneeded
-  depends_on "tezos-signer"
+  depends_on "mavryk-signer"
 
-  desc "Meta formula that provides backround tezos-signer service that runs over http"
+  desc "Meta formula that provides backround mavryk-signer service that runs over tcp socket"
 
   def install
     startup_contents =
@@ -18,7 +18,7 @@ class TezosSignerHttp < Formula
 
       set -euo pipefail
 
-      signer="/usr/local/bin/tezos-signer"
+      signer="/usr/local/bin/mavryk-signer"
 
       if [[ -n $PIDFILE ]]; then
         pid_file_args=("--pid-file" "$PIDFILE")
@@ -38,12 +38,12 @@ class TezosSignerHttp < Formula
         check_high_watermark_args=()
       fi
 
-      "$signer" -d "$DATA_DIR" launch http signer --address "$ADDRESS" --port "$PORT" \
+      "$signer" -d "$DATA_DIR" launch socket signer --address "$ADDRESS" --port "$PORT" --timeout "$TIMEOUT" \
         ${pid_file_args[@]+"${pid_file_args[@]}"} ${magic_bytes_args[@]+"${magic_bytes_args[@]}"} \
         ${check_high_watermark_args[@]+"${check_high_watermark_args[@]}"} "$@"
     EOS
-    File.write("tezos-signer-http-start", startup_contents)
-    bin.install "tezos-signer-http-start"
+    File.write("mavryk-signer-tcp-start", startup_contents)
+    bin.install "mavryk-signer-tcp-start"
   end
   def plist
     <<~EOS
@@ -55,15 +55,17 @@ class TezosSignerHttp < Formula
           <key>Label</key>
           <string>#{plist_name}</string>
           <key>Program</key>
-          <string>#{opt_bin}/tezos-signer-http-start</string>
+          <string>#{opt_bin}/mavryk-signer-tcp-start</string>
           <key>EnvironmentVariables</key>
             <dict>
               <key>ADDRESS</key>
               <string>127.0.0.1</string>
               <key>PORT</key>
-              <string>8080</string>
+              <string>8000</string>
+              <key>TIMEOUT</key>
+              <string>1</string>
               <key>DATA_DIR</key>
-              <string>#{var}/lib/tezos/signer-http</string>
+              <string>#{var}/lib/tezos/signer-tcp</string>
               <key>PIDFILE</key>
               <string></string>
               <key>MAGIC_BYTES</key>
@@ -81,6 +83,6 @@ class TezosSignerHttp < Formula
     EOS
   end
   def post_install
-    mkdir "#{var}/lib/tezos/signer-http"
+    mkdir "#{var}/lib/tezos/signer-tcp"
   end
 end
