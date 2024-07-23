@@ -27,7 +27,6 @@ class MavrykClient < Formula
 
   bottle do
     root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykClient.version}/"
-    cellar :any
   end
 
   def make_deps

@@ -28,7 +28,6 @@ class MavrykEndorser008Ptedo2zk < Formula
 
   bottle do
     root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykEndorser008Ptedo2zk.version}/"
-    cellar :any
   end
 
   def make_deps

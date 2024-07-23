@@ -27,7 +27,6 @@ class MavrykSandbox < Formula
 
   bottle do
     root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykSandbox.version}/"
-    cellar :any
   end
 
   def make_deps

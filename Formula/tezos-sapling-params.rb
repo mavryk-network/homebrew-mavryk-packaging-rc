@@ -12,7 +12,6 @@ class MavrykSaplingParams < Formula
 
   bottle do
     root_url "https://github.com/mavryk-network/mavryk-packaging/releases/download/#{MavrykSaplingParams.version}/"
-    cellar :any
   end
 
   def install
