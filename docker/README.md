@@ -109,7 +109,7 @@ In order to choose specific ubuntu distribution to build for (see [support polic
 use `-d` or `--distributions` option:
 ```
 export MAVKIT_VERSION="v17.3"
-cd .. && ./docker/package.py --os ubuntu --type binary -d focal jammy -p mavryk-client mavryk-node
+cd .. && ./docker/package.py --os ubuntu --type binary -d focal jammy noble -p mavryk-client mavryk-node
 ```
 
 The build can take some time due to the fact that we build mavryk and its dependencies
@@ -146,7 +146,7 @@ the submitter info and signed.
 If you want to sign resulted source packages automatically, you can provide signer identity through `--gpg-sign` or `-s` option:
 ```
 export MAVKIT_VERSION="v17.3"
-cd .. && ./docker/package.py --os ubuntu --type source -d focal jammy -p mavryk-client -s <signer_info>
+cd .. && ./docker/package.py --os ubuntu --type source -d focal jammy noble -p mavryk-client -s <signer_info>
 ```
 For example, `signer_info` can be the following: `Tristan Allaire <tristan@mavryk.io>`
 
