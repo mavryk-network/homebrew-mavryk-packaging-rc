@@ -86,7 +86,7 @@ def get_fedora_run_deps(binaries_dir):
         "gmp-devel",
         "hidapi-devel",
         "libffi-devel",
-        "zlib-devel",
+        "zlib-ng-compat-devel",
         "libpq-devel",
         "protobuf-compiler",
         "protobuf-devel",
