@@ -21,6 +21,7 @@ subprocess.run(
         "https://gitlab.com/mavryk-network/mavryk-protocol.git",
         "--depth",
         "1",
+        "mavryk"
     ]
 )
 # NOTE: it's important to keep the `mavryk/.git` directory here, because the
@@ -37,7 +38,7 @@ subprocess.run(
 
 opam_repository_tag = (
     subprocess.run(
-        ". ./mavryk-protocol/scripts/version.sh; echo $opam_repository_tag",
+        ". ./mavryk/scripts/version.sh; echo $opam_repository_tag",
         stdout=subprocess.PIPE,
         shell=True,
     )

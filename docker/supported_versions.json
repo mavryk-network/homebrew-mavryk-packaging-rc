@@ -1,9 +1,12 @@
 {
   "ubuntu": [
     "focal",
-    "jammy"
+    "jammy",
+    "noble"
   ],
   "fedora": [
-    "39"
+    "40",
+    "41",
+    "42"
   ]
 }
