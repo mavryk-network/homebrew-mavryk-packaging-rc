@@ -39,7 +39,7 @@ steps:
    commands:
    - eval "$SET_VERSION"
    - buildkite-agent artifact download "out/*" . --step build-ubuntu-source-packages
-   - nix develop .#docker-mavryk-packages -c ./docker/build/ubuntu/sign.py -d out -i 'Mavryk Dynamics <info@mavryk.io>'
+   - nix develop .#docker-mavryk-packages -c ./docker/build/ubuntu/sign.py -d out -i 'Mavryk Dynamics Cowbot <cowbot@mavryk.io>'
    artifact_paths:
      - ./out/*
 
@@ -51,7 +51,7 @@ steps:
    commands:
    - eval "$SET_VERSION"
    - buildkite-agent artifact download "out/*" . --step build-fedora-source-packages
-   - nix develop .#docker-mavryk-packages -c ./docker/build/fedora/sign.py -d out -i 'Mavryk Dynamics <info@mavryk.io>'
+   - nix develop .#docker-mavryk-packages -c ./docker/build/fedora/sign.py -d out -i 'Mavryk Dynamics Cowbot <cowbot@mavryk.io>'
    artifact_paths:
      - ./out/*
 
@@ -104,7 +104,7 @@ steps:
    commands:
    - eval "$SET_VERSION"
    - buildkite-agent artifact download "epel/*" . --step build-source-packages-from-static-binaries
-   - nix develop .#docker-mavryk-packages -c ./docker/build/fedora/sign.py -d epel -i 'Mavryk Dynamics <info@mavryk.io>'
+   - nix develop .#docker-mavryk-packages -c ./docker/build/fedora/sign.py -d epel -i 'Mavryk Dynamics Cowbot <cowbot@mavryk.io>'
    artifact_paths:
      - ./epel/*
 

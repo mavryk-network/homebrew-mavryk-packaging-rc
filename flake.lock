@@ -636,6 +636,22 @@
         "type": "github"
       }
     },
+    "mavryk": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757692448,
+        "narHash": "sha256-w/GBZYjPFoMJ0akcs2DsO0/4nqEguap4TgYqFhgvAzA=",
+        "owner": "mavryk-network",
+        "repo": "mavryk-protocol",
+        "rev": "9b9b3c10bf5b685a667eef6800b018a800971134",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "mavryk-network",
+        "repo": "mavryk-protocol",
+        "type": "gitlab"
+      }
+    },
     "mirage-opam-overlays": {
       "flake": false,
       "locked": {
@@ -1243,11 +1259,11 @@
     "opam-repository_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1731448759,
-        "narHash": "sha256-HUqY3MuNLUf2etT9X/ZiHQtMQqU+LxwXzrm3AlOP634=",
+        "lastModified": 1713280463,
+        "narHash": "sha256-ya7cI3YOCUHXLVCChkA6fbaSAK1Oaz5yMC0NkdBS30M=",
         "owner": "ocaml",
         "repo": "opam-repository",
-        "rev": "d4c6a480805e2a9eafb47afe89128b65244cbdac",
+        "rev": "1c62dbefdab36851f868daa1b8c75af4f8703e8f",
         "type": "github"
       },
       "original": {
@@ -1282,14 +1298,14 @@
         "crane": "crane",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
+        "mavryk": "mavryk",
         "nix": "nix",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "opam-nix": "opam-nix",
         "opam-repository": "opam-repository_2",
         "rust-overlay": "rust-overlay",
-        "serokell-nix": "serokell-nix",
-        "mavryk": "mavryk"
+        "serokell-nix": "serokell-nix"
       }
     },
     "rust-overlay": {
@@ -1411,22 +1427,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "mavryk": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1718697806,
-        "narHash": "sha256-rF93yY0b0d53LUmYAoDjueqOBM5U/xA6riF/zXb7DXg=",
-        "owner": "mavryk",
-        "repo": "mavryk",
-        "rev": "1a991a031e88249e187e6d39d979d2533233c17c",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "mavryk",
-        "repo": "mavryk",
-        "type": "gitlab"
       }
     },
     "tullia": {
