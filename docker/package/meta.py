@@ -30,6 +30,8 @@ meta_json_contents = json.load(
 )
 
 tag = os.environ.get("MAVKIT_VERSION", meta_json_contents["mavryk_ref"])
+# Use the clean upstream tag (without Debian suffix) for license version by default
+clean_tag_for_license = tag.split("+")[0]
 for i, c in enumerate(tag):
     if c.isdigit():
         digit_index = i
@@ -42,5 +44,5 @@ packages_meta = PackagesMeta(
     ubuntu_epoch=2,
     fedora_epoch=1,
     maintainer=meta_json_contents["maintainer"],
-    license_version=os.getenv("MAVRYK_LICENSE_VERSION", tag),
+    license_version=os.getenv("MAVRYK_LICENSE_VERSION", clean_tag_for_license),
 )

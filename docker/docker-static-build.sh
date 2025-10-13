@@ -43,6 +43,7 @@ if [[ $arch == "aarch64" && $(uname -m) != "x86_64" ]]; then
     echo "Compiling for aarch64 is supported only from aarch64 and x86_64"
 fi
 
+# "$virtualisation_engine" buildx build --platform=linux/arm64 -t alpine-mavryk -f "$docker_file" --build-arg=MAVKIT_VERSION="$MAVKIT_VERSION" --build-arg=MAVKIT_EXECUTABLES="$MAVKIT_EXECUTABLES" --load .
 "$virtualisation_engine" build -t alpine-mavryk -f "$docker_file" --build-arg=MAVKIT_VERSION="$MAVKIT_VERSION" --build-arg=MAVKIT_EXECUTABLES="$MAVKIT_EXECUTABLES" .
 container_id="$("$virtualisation_engine" create alpine-mavryk)"
 for b in "${binaries[@]}"; do

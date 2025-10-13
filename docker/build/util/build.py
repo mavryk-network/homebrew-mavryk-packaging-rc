@@ -82,13 +82,18 @@ def run_build(args: Arguments) -> List[str]:
     target_os = args.os
 
     mavkit_version = args.mavkit_version
+    # Optional suffix to alter Debian upstream version without changing the
+    # upstream Git tag used for fetching sources. Example: +repack1, +ds1.
+    version_suffix = os.getenv("MAVKIT_VERSION_SUFFIX", "")
+    # Ensure Dockerfile fetches a real tag that exists (no +suffix)
+    base_mavkit_version = mavkit_version.split("+")[0]
 
     # prebuild docker image before using containers
     check_call(
         f"""
     {virtualisation_engine}
     build -t mavryk-{target_os}-{image}
-    -f docker/package/Dockerfile-{target_os} --build-arg MAVKIT_VERSION={mavkit_version} --build-arg dist={image} .
+    -f docker/package/Dockerfile-{target_os} --build-arg MAVKIT_VERSION={base_mavkit_version} --build-arg dist={image} .
     """
     )
 
@@ -100,12 +105,18 @@ def run_build(args: Arguments) -> List[str]:
 
     docker_volumes = args.docker_volumes
 
+    # Pass the possibly suffixed version into the runtime packaging phase
+    packaging_mavkit_version = (
+        f"{base_mavkit_version}{version_suffix}" if version_suffix else mavkit_version
+    )
+
     container_id = get_proc_output(
         f"""
     {virtualisation_engine}
     create {" ".join(["-v " + v for v in docker_volumes])}
     {container_create_args}
-    --env MAVKIT_VERSION={mavkit_version}
+    --env MAVKIT_VERSION={packaging_mavkit_version}
+    --env MAVRYK_LICENSE_VERSION={base_mavkit_version}
     --env OPAMSOLVERTIMEOUT=900
     -t mavryk-{target_os}-{image} {cmd_args}
     """
